@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
 
 repositories {
 	mavenCentral()
@@ -8,4 +9,59 @@ repositories {
 dependencies {
 	compile 'junit:junit:4.12'
 	compile 'org.jmockit:jmockit:1.19'
+}
+
+group = "com.github.antrew"
+archivesBaseName = "junit-volkswagen"
+version = "0.0.1"
+
+jar {
+	manifest {
+		attributes(
+			"Implementation-Title": "JUnitVolkswagen",
+			"Implementation-Version": version,
+			)
+	}
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+task writePom << {
+	pom {
+		project {
+			name 'JUnitVolkswagen'
+			description 'Make your tests pass on any integration server! Always!'
+			url 'https://github.com/antrew/junit-volkswagen'
+			inceptionYear '2015'
+			licenses {
+				license {
+					name 'The Apache Software License, Version 2.0'
+					url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+				}
+			}
+			developers {
+				developer {
+					name 'Andrey Vetlugin'
+					email 'antrew@gmail.com'
+				}
+			}
+			scm {
+				connection 'scm:git:https://github.com/antrew/junit-volkswagen.git'
+				developerConnection 'scm:git:https://github.com/antrew/junit-volkswagen.git'
+				url 'https://github.com/antrew/junit-volkswagen.git'
+			}
+		}
+	}.writeTo("$buildDir/libs/junit-volkswagen-0.0.1.pom")
 }
