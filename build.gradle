@@ -7,6 +7,5 @@ repositories {
 
 dependencies {
 	compile 'junit:junit:4.12'
-	compile 'javassist:javassist:3.12.1.GA'
 	compile 'org.jmockit:jmockit:1.19'
 }
